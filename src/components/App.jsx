@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import ToDoItems from "./ToDoItems";
 
 function App() {
-  const [inputText, setinputText] = useState("");
-  const [tasks, setTask] = useState([]);
+  const [inputText, setInputText] = useState("");
+  const [items, setItems] = useState([]);
+
   function handleChange(event) {
-    const newvalue = event.target.value;
-    setinputText(newvalue);
+    const newValue = event.target.value;
+    setInputText(newValue);
   }
-  function handleTask() {
-    setTask((prev) => {
-      return [...prev, inputText];
+
+  function addItem() {
+    setItems((prevItems) => {
+      return [...prevItems, inputText];
     });
-    setinputText("");
+    setInputText("");
   }
 
   return (
@@ -21,16 +24,16 @@ function App() {
       </div>
       <div className="form">
         <input onChange={handleChange} type="text" value={inputText} />
-        <button onClick={handleTask}>
+        <button onClick={addItem}>
           <span>Add</span>
         </button>
-      </div>
-      <div>
-        <ul>
-          {tasks.map((item) => {
-            return <li>{item}</li>;
-          })}
-        </ul>
+        <div>
+          <ul>
+            {items.map((todoItem) => (
+              <ToDoItems text={todoItem} />
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
